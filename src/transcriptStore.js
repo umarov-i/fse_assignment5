@@ -51,7 +51,9 @@ getStudentIDs(name) {
     if (!Number.isInteger(numericGrade) || numericGrade < 0 || numericGrade > 100) {
       throw new Error("Grade must be an integer from 0 to 100");
     }
-
+    if (this.#grades.get(parsedID)?.has(normalizedCourse)) {
+      throw new Error(`Grade already exists for course ${normalizedCourse}`);
+    }
     const studentGrades = this.#grades.get(parsedID) ?? new Map();
     studentGrades.set(normalizedCourse, numericGrade);
     this.#grades.set(parsedID, studentGrades);
