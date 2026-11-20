@@ -37,6 +37,7 @@ export class TranscriptStore {
     if (!this.#students.delete(parsedID)) {
       throw new Error(`Student not found: ${parsedID}`);
     }
+    this.#grades.delete(parsedID);
   }
 
   addGrade(studentID, course, grade) {
