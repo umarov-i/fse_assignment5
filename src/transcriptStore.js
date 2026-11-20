@@ -45,9 +45,11 @@ getStudentIDs(name) {
 
   addGrade(studentID, course, grade) {
     const parsedID = this.#requireStudent(studentID).studentID;
-
     const normalizedCourse = requireCourse(course);
     const numericGrade = requireGrade(grade);
+    if (this.#grades.get(parsedID)?.has(normalizedCourse)) {
+      throw new Error(`Grade already exists for course ${normalizedCourse}`);
+    }
 
     const studentGrades = this.#grades.get(parsedID) ?? new Map();
     studentGrades.set(normalizedCourse, numericGrade);
